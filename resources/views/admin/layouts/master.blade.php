@@ -32,7 +32,6 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">	
     <script src="{{ asset('admin/vendors/jquery/dist/jquery.min.js')}}"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-	
   </head>
 
   <body class="nav-md">
