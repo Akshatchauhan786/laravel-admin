@@ -1,171 +1,108 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!-- Meta, title, CSS, favicons, etc. -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" href="images/favicon.ico" type="image/ico" />
 
-    <title>Admin| Dashboard</title>
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--favicon-->
+	<link rel="icon" href="{{ asset('adminbackend/assets/images/favicon-32x32.png') }}" type="image/png" />
+	<!--plugins-->
+	<link href="{{ asset('adminbackend/assets/plugins/vectormap/jquery-jvectormap-2.0.2.css') }}" rel="stylesheet" />
+	<link href="{{ asset('adminbackend/assets/plugins/simplebar/css/simplebar.css') }}" rel="stylesheet" />
+	<link href="{{ asset('adminbackend/assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css') }}" rel="stylesheet" />
+	<link href="{{ asset('adminbackend/assets/plugins/metismenu/css/metisMenu.min.css') }}" rel="stylesheet" />
+	<!-- loader-->
+	<link href="{{ asset('adminbackend/assets/css/pace.min.css') }}" rel="stylesheet" />
+	<script src="{{ asset('adminbackend/assets/js/pace.min.js') }}"></script>
+	<!-- Bootstrap CSS -->
+	<link href="{{ asset('adminbackend/assets/css/bootstrap.min.css') }}" rel="stylesheet">
+	<link href="{{ asset('adminbackend/assets/css/app.css') }}" rel="stylesheet">
+	<link href="{{ asset('adminbackend/assets/css/icons.css') }}" rel="stylesheet">
+	<!-- Theme Style CSS -->
+	<link rel="stylesheet" href="{{ asset('adminbackend/assets/css/dark-theme.css') }}" />
+	<link rel="stylesheet" href="{{ asset('adminbackend/assets/css/semi-dark.css') }}" />
+	<link rel="stylesheet" href="{{ asset('adminbackend/assets/css/header-colors.css') }}" />
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
-    <!-- Bootstrap -->
-    <link href="{{ asset('admin/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="{{ asset('admin/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
-    <!-- NProgress -->
-    <link href="{{ asset('admin/vendors/nprogress/nprogress.css')}}" rel="stylesheet">
-    <!-- iCheck -->
-    <link href="{{ asset('admin/vendors/iCheck/skins/flat/green.css')}}" rel="stylesheet">
-	
-    <!-- bootstrap-progressbar -->
-    <link href="{{ asset('admin/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css')}}" rel="stylesheet">
-    <!-- JQVMap -->
-    <link href="{{ asset('admin/vendors/jqvmap/dist/jqvmap.min.css')}}" rel="stylesheet"/>
-    <!-- bootstrap-daterangepicker -->
-    <link href="{{ asset('admin/vendors/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
 
-    <!-- Custom Theme Style -->
-    <link href="{{ asset('admin/build/css/custom.min.css')}}" rel="stylesheet">
+	<title>Admin Dashboard</title>
+</head>
 
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">	
-    <script src="{{ asset('admin/vendors/jquery/dist/jquery.min.js')}}"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-  </head>
+<body>
+	<!--wrapper-->
+	<div class="wrapper">
+		<!--sidebar wrapper -->
+		@include('admin.body.sidebar')
+		<!--end sidebar wrapper -->
+		<!--start header -->
+		@include('admin.body.header')
+		<!--end header -->
+		<!--start page wrapper -->
+		<div class="page-wrapper">
+			@yield('admin')
+		</div>
+		<!--end page wrapper -->
 
-  <body class="nav-md">
-    <div class="container body">
-      <div class="main_container">
-        <div class="col-md-3 left_col">
-          <div class="left_col scroll-view">
-        
-            <div class="clearfix"></div>
-            <!-- menu profile quick info -->
-            <div class="profile clearfix">
-              <div class="profile_pic">
-                <img src="{{asset('profile')}}/{{Session::get('ADMIN_IMAGE')}}" alt="..." class="img-circle profile_img">
-              </div>
-              <div class="profile_info">
-                
-                <span>Welcome,</span>
-                <h2>{{Session::get('ADMIN_NAME')}}</h2>
-              </div>
-            </div>
-            <!-- /menu profile quick info -->
 
-            <br />
+		<!--start overlay-->
+		<div class="overlay toggle-icon"></div>
+		<!--end overlay-->
+		<!--Start Back To Top Button--> <a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
+		<!--End Back To Top Button-->
+		@include('admin.body.footer')
+	</div>
+	<!--end wrapper-->
+	<!--start switcher-->
 
-            <!-- sidebar menu -->
-            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-              <div class="menu_section">
-                <h3>General</h3>
-                <ul class="nav side-menu">
-                <li><a href="{{route('admin.dashboard')}}"><i class="fa fa-home"></i> Dashboard</a>
-                </ul>
-              </div>
-            </div>
-            <!-- /sidebar menu -->
+	<!--end switcher-->
+	<!-- Bootstrap JS -->
+	<script src="{{ asset('adminbackend/assets/js/bootstrap.bundle.min.js') }}"></script>
+	<!--plugins-->
+	<script src="{{ asset('adminbackend/assets/js/jquery.min.js') }}"></script>
+	<script src="{{ asset('adminbackend/assets/plugins/simplebar/js/simplebar.min.js') }}"></script>
+	<script src="{{ asset('adminbackend/assets/plugins/metismenu/js/metisMenu.min.js') }}"></script>
+	<script src="{{ asset('adminbackend/assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js') }}"></script>
+	<script src="{{ asset('adminbackend/assets/plugins/chartjs/js/Chart.min.js') }}"></script>
+	<script src="{{ asset('adminbackend/assets/plugins/vectormap/jquery-jvectormap-2.0.2.min.js') }}"></script>
+	<script src="{{ asset('adminbackend/assets/plugins/vectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
+	<script src="{{ asset('adminbackend/assets/plugins/jquery.easy-pie-chart/jquery.easypiechart.min.js') }}"></script>
+	<script src="{{ asset('adminbackend/assets/plugins/sparkline-charts/jquery.sparkline.min.js') }}"></script>
+	<script src="{{ asset('adminbackend/assets/plugins/jquery-knob/excanvas.js') }}"></script>
+	<script src="{{ asset('adminbackend/assets/plugins/jquery-knob/jquery.knob.js') }}"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+	<script>
+		$(function() {
+			$(".knob").knob();
+		});
+	</script>
+	<script src="{{ asset('adminbackend/assets/js/index.js') }}"></script>
+	<!--app JS-->
+	<script src="{{ asset('adminbackend/assets/js/app.js') }}"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+	<script>
+		@if(Session::has('message'))
+		var type = "{{ Session::get('alert-type','info') }}"
+		switch (type) {
+			case 'info':
+				toastr.info(" {{ Session::get('message') }} ");
+				break;
+			case 'success':
+				toastr.success(" {{ Session::get('message') }} ");
+				break;
+			case 'warning':
+				toastr.warning(" {{ Session::get('message') }} ");
+				break;
+			case 'error':
+				toastr.error(" {{ Session::get('message') }} ");
+				break;
+		}
+		@endif
+	</script>
+</body>
 
-            <!-- /menu footer buttons -->
-            <div class="sidebar-footer hidden-small">
-              <a data-toggle="tooltip" data-placement="top" title="Settings">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Logout" href="{{route('admin.logout')}}">
-                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-              </a>
-            </div>
-            <!-- /menu footer buttons -->
-          </div>
-        </div>
-
-        <!-- top navigation -->
-        <div class="top_nav">
-          <div class="nav_menu">
-              <div class="nav toggle">
-                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-              </div>
-              <nav class="nav navbar-nav">
-              <ul class=" navbar-right">
-                <li class="nav-item dropdown open" style="padding-left: 15px;">
-                  <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                    <img src="{{asset('profile')}}/{{Session::get('ADMIN_IMAGE')}}" alt="">{{Session::get('ADMIN_NAME')}}
-                  </a>
-                  <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item"  href="{{route('admin.editprofile')}}"> Profile</a>  
-                   <a class="dropdown-item"  href="{{route('admin.changepassword')}}">Change Password</a>
-                    <a class="dropdown-item"  href="{{route('admin.logout')}}"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
-                  </div>
-                </li>
-
-              </ul>
-            </nav>
-          </div>
-        </div>
-        <!-- /top navigation -->
-
-        <!-- page content -->
-        @yield('content')
-        <!-- /page content -->
-
-        <!-- footer content -->
-        <footer>
-          <div class="pull-right">
-            Media Search Group - Bootstrap Admin Template by <a href="https://www.mediasearchgroup.com/">Media Search Group</a>
-          </div>
-          <div class="clearfix"></div>
-        </footer>
-        <!-- /footer content -->
-      </div>
-    </div>
-
-   <!-- jQuery -->
-   
-    <!-- Bootstrap -->
-    <script src="{{ asset('admin/vendors/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
-    <!-- FastClick -->
-    <script src="{{ asset('admin/vendors/fastclick/lib/fastclick.js')}}"></script>
-    <!-- NProgress -->
-    <script src="{{ asset('admin/vendors/nprogress/nprogress.js')}}"></script>
-    <!-- Chart.js -->
-    <script src="{{ asset('admin/vendors/Chart.js/dist/Chart.min.js')}}"></script>
-    <!-- gauge.js -->
-    <script src="{{ asset('admin/vendors/gauge.js/dist/gauge.min.js')}}"></script>
-    <!-- bootstrap-progressbar -->
-    <script src="{{ asset('admin/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js')}}"></script>
-    <!-- iCheck -->
-    <script src="{{ asset('admin/vendors/iCheck/icheck.min.js')}}"></script>
-    <!-- Skycons -->
-    <script src="{{ asset('admin/vendors/skycons/skycons.js')}}"></script>
-    <!-- Flot -->
-    <script src="{{ asset('admin/vendors/Flot/jquery.flot.js')}}"></script>
-    <script src="{{ asset('admin/vendors/Flot/jquery.flot.pie.js')}}"></script>
-    <script src="{{ asset('admin/vendors/Flot/jquery.flot.time.js')}}"></script>
-    <script src="{{ asset('admin/vendors/Flot/jquery.flot.stack.js')}}"></script>
-    <script src="{{ asset('admin/vendors/Flot/jquery.flot.resize.js')}}"></script>
-    <!-- Flot plugins -->
-    <script src="{{ asset('admin/vendors/flot.orderbars/js/jquery.flot.orderBars.js')}}"></script>
-    <script src="{{ asset('admin/vendors/flot-spline/js/jquery.flot.spline.min.js')}}"></script>
-    <script src="{{ asset('admin/vendors/flot.curvedlines/curvedLines.js')}}"></script>
-    <!-- DateJS -->
-    <script src="{{ asset('admin/vendors/DateJS/build/date.js')}}"></script>
-    <!-- JQVMap -->
-    <script src="{{ asset('admin/vendors/jqvmap/dist/jquery.vmap.js')}}"></script>
-    <script src="{{ asset('admin/vendors/jqvmap/dist/maps/jquery.vmap.world.js')}}"></script>
-    <script src="{{ asset('admin/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js')}}"></script>
-    <!-- bootstrap-daterangepicker -->
-    <script src="{{ asset('admin/vendors/moment/min/moment.min.js')}}"></script>
-    <script src="{{ asset('admin/vendors/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
-
-    <!-- Custom Theme Scripts -->
-    <script src="{{ asset('admin/build/js/custom.min.js')}}"></script>
-  
-  </body>
 </html>

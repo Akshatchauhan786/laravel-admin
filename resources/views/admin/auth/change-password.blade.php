@@ -2,84 +2,111 @@
 
 @section('title', 'Change Pasword')
 
-@section('content')
+@section('admin')
  
-<!-- page content -->
-  <div class="right_col" role="main">
-				<div class="">
-					<div class="page-title">
-						<div class="title_left">
-							<h3>Update</h3>
-						</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<div class="page-content"> 
+				<!--breadcrumb-->
+				<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+					<div class="breadcrumb-title pe-3">Admin Change Password</div>
+					<div class="ps-3">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0 p-0">
+								<li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+								</li>
+								<li class="breadcrumb-item active" aria-current="page">Change Password</li>
+							</ol>
+						</nav>
 					</div>
-					<div class="clearfix"></div>
-					<div class="row">
-						<div class="col-md-12 col-sm-12 ">
-							<div class="x_panel">
-								<div class="x_title">
-									<h2>Update<small>Password</small></h2>
-									<ul class="nav navbar-right panel_toolbox">
-										<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-										</li>
-									</ul>
-									<div class="clearfix"></div>
-								</div>
-								<div class="x_content">
-									<br />
-                  <form method="POST" action="{{ route('admin.updatepassword') }}">
-              @csrf
+					<div class="ms-auto">
+				 
+					</div>
+				</div>
+				<!--end breadcrumb-->
+				<div class="container">
+					<div class="main-body">
+						<div class="row">
+						 
+<div class="col-lg-12">
+	<div class="card">
+		<div class="card-body">
 
-										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Current Password <span class="required">*</span>
-											</label>
-											<div class="col-md-6 col-sm-6 ">
-                      <input type="password" class="form-control" name="current_password"  placeholder="Enter Current Password Here">
-                        <span class="text-danger">@error('current_password'){{ $message }} @enderror</span>	
-                         @if(Session::get('error'))<span class="text-danger">
-                             {{ Session::get('error') }}
-                             </span>	
-                            @endif
-											</div>
-										</div>
-										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">New Password<span class="required">*</span>
-											</label>
-											<div class="col-md-6 col-sm-6 ">
-                      <input type="password" class="form-control" name="password" placeholder="Enter  New Password Here">
-                      <span class="text-danger">@error('password'){{ $message }} @enderror</span>	
-											</div>
-										</div>
+		<form method="post" action="{{ route('update.password') }}"  >
+			@csrf
+		 
+		 @if (session('status'))
+		 <div class="alert alert-success" role="alert">
+		 		{{session('status')}}
+		 </div>
+		 @elseif(session('error'))
+		 <div class="alert alert-danger" role="alert">
+		 	{{session('error')}}
+		 </div>
+		 @endif
 
-                    <div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Conform Password<span class="required">*</span>
-											</label>
-											<div class="col-md-6 col-sm-6 ">
-                      <input type="password" name="password_confirmation" class="form-control" placeholder="Enter Confirm Password">
-                      <span class="text-danger">@error('password_confirm'){{ $message }} @enderror</span>
-											</div>
-										</div>
-										
-										<div class="ln_solid"></div>
-										<div class="item form-group">
-											<div class="col-md-6 col-sm-6 offset-md-3">
-												<button type="submit" class="btn btn-success">Submit</button>
-											</div>
-										</div>
+			<div class="row mb-3">
+				<div class="col-sm-3">
+					<h6 class="mb-0">Old Password</h6>
+				</div>
+				<div class="col-sm-9 text-secondary">
+					<input type="password" name="old_password" class="form-control @error('old_password') is-invalid @enderror" id="current_password"   placeholder="Old Password" />
 
-									</form>
-								</div>
+					@error('old_password')
+					<span class="text-danger">{{ $message }}</span>
+					@enderror
+				</div>
+			</div>
+
+
+			<div class="row mb-3">
+				<div class="col-sm-3">
+					<h6 class="mb-0">New Password</h6>
+				</div>
+				<div class="col-sm-9 text-secondary">
+					<input type="password" name="new_password" class="form-control @error('new_password') is-invalid @enderror" id="new_password"   placeholder="New Password" />
+
+					@error('new_password')
+					<span class="text-danger">{{ $message }}</span>
+					@enderror
+				</div>
+			</div>
+
+
+			<div class="row mb-3">
+				<div class="col-sm-3">
+					<h6 class="mb-0">Confirm New Password</h6>
+				</div>
+				<div class="col-sm-9 text-secondary">
+					<input type="password" name="new_password_confirmation" class="form-control" id="new_password_confirmation"   placeholder="Confirm New Password" /> 
+				</div>
+			</div>
+
+ 
+
+
+			<div class="row">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-9 text-secondary">
+					<input type="submit" class="btn btn-primary px-4" value="Save Changes" />
+				</div>
+			</div>
+		</div>
+
+		</form>
+
+
+
+	</div>
+	 
+
+
+
 							</div>
 						</div>
 					</div>
-
-					
-				
 				</div>
 			</div>
-<!-- /page content -->
-@if(Session::has('updatepassword')) 
-  <script type="text/javascript">
-  	toastr.success(' {{session('updatepassword')}}');
-  </script>
- @endif
+
+
   @endsection

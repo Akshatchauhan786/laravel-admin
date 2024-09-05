@@ -1,74 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Admin | Log in</title>
-  <link rel="icon" href="{{ asset('public/admin/dist/img/admin.png')}}" type="image/gif">
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="{{ asset('public/admin/plugins/fontawesome-free/css/all.min.css')}}">
-  <!-- icheck bootstrap -->
-  <link rel="stylesheet" href="{{ asset('public/admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="{{ asset('public/admin/dist/css/adminlte.min.css')}}">
-</head>
-<body class="hold-transition login-page">
-<div class="login-box">
-  <div class="login-logo">
-    <a href="{{url('/admin')}}"><b>Administrator </b>Login</a>
-  </div>
-  <!-- /.login-logo -->
-  <div class="card">
-    <div class="card-body login-card-body">
-    <form method="POST" action="{{ route('admin.sendPasswordResetToken') }}">
-        @csrf
-        <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Email" name="email">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
-            </div>
-          </div>
-        </div>
-        <span class="text-danger">@error('email'){{ $message }} @enderror</span>
-				@if(Session::get('error'))<span class="text-danger">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Admin | Login </title>
+
+    <!-- Bootstrap -->
+    <link href="{{ URL::asset('admin/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="{{ asset('admin/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="{{ asset('admin/vendors/nprogress/nprogress.css')}}" rel="stylesheet">
+    <!-- Animate.css -->
+    <link href="{{ asset('admin/vendors/animate.css/animate.min.css')}}" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="{{ asset('admin/build/css/custom.min.css')}}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css"> 
+    <script src="{{ asset('admin/vendors/jquery/dist/jquery.min.js')}}"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+  </head>
+<body class="login">
+    
+      <div>
+      <a class="hiddenanchor" id="signup"></a>
+      <a class="hiddenanchor" id="signin"></a>
+     
+
+      <div class="login_wrapper">
+        <div class="animate form login_form">
+          <section class="login_content">
+            <img src="{{asset('admin/images/PNG-transparent.png')}}" width="300px" height="100px" alt="">
+          <form method="POST" action="{{ route('admin.sendPasswordResetToken') }}">
+         
+         @csrf
+              <h1>Reset Password</h1>
+              @if(Session::get('fail'))
+              <div class="alert alert-danger">
+              {{ Session::get('fail') }}
+             </div>
+             @endif
+              <div>
+                <input type="text" class="form-control" placeholder="Email" name="email"/>
+                @error('email')<span class="text-danger float left" role="alert">{{ $message }}</span>@enderror
+              </div>
+
+               <span class="text-danger">@error('email'){{ $message }} @enderror</span>
+        @if(Session::get('error'))<span class="text-danger">
          {{ Session::get('error') }}
-        </span>	
+        </span> 
          @endif
-			@if(Session::get('message'))
-			   <span class="text-success">
+      @if(Session::get('message'))
+         <span class="text-success">
               {{ Session::get('message') }}
-			  </span>
+        </span>
         @endif
-		
+    
         @error('email')
             <span class="text-danger" role="alert">
             {{ $message }}
           </span>
           @enderror
-        <div class="row">
-          <div class="col-4">
-          </div>
-          <!-- /.col -->
-          <div class="col-8">
-            <button type="submit" class="btn btn-primary btn-block">Forgot Password</button>
-          </div>
-          <!-- /.col -->
-        </div>
-      </form>
-    </div>
-    <!-- /.login-card-body -->
-  </div>
-</div>
-<!-- /.login-box -->
 
-<!-- jQuery -->
-<script src="{{ asset('public/admin/plugins/jquery/jquery.min.js')}}"></script>
-<!-- Bootstrap 4 -->
-<script src="{{ asset('public/admin/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-<!-- AdminLTE App -->
-<script src="{{ asset('public/admin/dist/js/adminlte.min.js')}}"></script>
-</body>
+
+              <div>
+               <button type="submit" class="btn btn-primary btn-block">Forgot Password</button>
+
+              </div>
+
+              <div class="clearfix"></div>
+
+              <div class="separator">
+                <p class="change_link">
+                  <a href="{{ route('admin.login') }}" class="to_register"> Back To Login </a>
+                </p>
+
+                <div class="clearfix"></div>
+                <br />
+              </div>
+            </form>
+          </section>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+

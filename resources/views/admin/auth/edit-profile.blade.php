@@ -2,96 +2,151 @@
 
 @section('title', 'Profile Edit')
 
-@section('content')
-<div class="right_col" role="main">
-				<div class="">
-					<div class="page-title">
-						<div class="title_left">
-							<h3>Profile</h3>
-						</div>
+@section('admin')
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<div class="page-content"> 
+				<!--breadcrumb-->
+				<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+					<div class="breadcrumb-title pe-3">Admin User Profile</div>
+					<div class="ps-3">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0 p-0">
+								<li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+								</li>
+								<li class="breadcrumb-item active" aria-current="page">Admin Profile</li>
+							</ol>
+						</nav>
 					</div>
-					<div class="clearfix"></div>
-					<div class="row">
-						<div class="col-md-12 col-sm-12 ">
-							<div class="x_panel">
-								<div class="x_title">
-									<h2>Profile<small>Profile Edit</small></h2>
-									<ul class="nav navbar-right panel_toolbox">
-										<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-										</li>
-									</ul>
-									<div class="clearfix"></div>
-								</div>
-								<div class="x_content">
-									<br />
-                  <form method="POST" action="{{ route('admin.updateprofile') }}" enctype="multipart/form-data">
-              @csrf
-
-              <div class="item form-group text-center" style="cursor: pointer;">
-										<div class="content featured-image">
-							     
-							     @if($ADMIN_LOGIN['email'] !='')
-                   <label for="file" style="cursor: pointer;">
-							     <p><img id="output" width="100px" height="100px" src="{{asset('profile')}}/{{$ADMIN_LOGIN['image']}}"/></p>	
-							     <input type="file"  accept="image/*" name="image" id="file"  onchange="loadFile(event)" style="display: none;">
-							     </label>
-							     @else
-                   <label for="file" style="cursor: pointer;">
-							     <p><img id="output" width="100px" height="100px" /></p>	
-							     <input type="file"  accept="image/*" name="image" id="file"  onchange="loadFile(event)" style="display: none;">
-                   </label>
-							    @endif						
-						      </div>
+					<div class="ms-auto">
+				 
+					</div>
+				</div>
+				<!--end breadcrumb-->
+				<div class="container">
+					<div class="main-body">
+						<div class="row">
+							<div class="col-lg-4">
+								<div class="card">
+									<div class="card-body">
+										<div class="d-flex flex-column align-items-center text-center">
+	@if($ADMIN_LOGIN['image'] !='')											
+ 	<img src="{{asset('profile')}}/{{$ADMIN_LOGIN['image']}}" alt="Admin" class="rounded-circle p-1 bg-primary" width="110">
+	 @else
+     <img src="{{ asset('profile')}}/no_image.jpg" alt="Admin" class="rounded-circle p-1 bg-primary" width="110">
+	 @endif
+					<div class="mt-3">
+						<h4>{{$ADMIN_LOGIN['name']}}</h4>
+						<p class="text-secondary mb-1">{{$ADMIN_LOGIN['email']}}</p>
+						
+					 
+					</div>
+										</div>
+										<hr class="my-4" />
+										<ul class="list-group list-group-flush">
+											
+										</ul>
 									</div>
-
-
-                   
-										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Name <span class="required">*</span>
-											</label>
-											<div class="col-md-6 col-sm-6 ">
-												<input type="text" id="first-name" class="form-control " name="name" value="{{$ADMIN_LOGIN['name']}}">
-                        <span class="text-danger">@error('name'){{ $message }} @enderror</span>		
-											</div>
-										</div>
-										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Email<span class="required">*</span>
-											</label>
-											<div class="col-md-6 col-sm-6 ">
-												<input type="text" id="last-name" name="email"  class="form-control" value="{{$ADMIN_LOGIN['email']}}">
-                        <span class="text-danger">@error('email'){{ $message }} @enderror</span>	
-											</div>
-										</div>
-										
-										<div class="ln_solid"></div>
-										<div class="item form-group">
-											<div class="col-md-6 col-sm-6 offset-md-3">
-												<button type="submit" class="btn btn-success">Submit</button>
-											</div>
-										</div>
-
-									</form>
 								</div>
+							</div>
+<div class="col-lg-8">
+	<div class="card">
+		<div class="card-body">
+
+		<form method="post" action="{{ route('admin.profile.store') }}" enctype="multipart/form-data" >
+			@csrf
+		
+			
+			<div class="row mb-3">
+				<div class="col-sm-3">
+					<h6 class="mb-0">Full Name</h6>
+				</div>
+				<div class="col-sm-9 text-secondary">
+					<input type="text" name="name" class="form-control" value="{{$ADMIN_LOGIN['name']}}" />
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="col-sm-3">
+					<h6 class="mb-0">Email</h6>
+				</div>
+				<div class="col-sm-9 text-secondary">
+					<input type="email" name="email" class="form-control" value="{{$ADMIN_LOGIN['email']}}" />
+				</div>
+			</div>
+
+
+
+
+
+
+			<div class="row mb-3">
+				<div class="col-sm-3">
+					<h6 class="mb-0">Photo</h6>
+				</div>
+				<div class="col-sm-9 text-secondary">
+					<input type="file" name="image" class="form-control"  id="image"   />
+				</div>
+			</div>
+
+
+
+			<div class="row mb-3">
+				<div class="col-sm-3">
+					<h6 class="mb-0"> </h6>
+				</div>
+				<div class="col-sm-9 text-secondary">
+				@if($ADMIN_LOGIN['image'] !='')
+					 <img id="showImage" src="{{asset('profile')}}/{{$ADMIN_LOGIN['image']}}" alt="Admin" style="width:100px; height: 100px;"  >
+				@else
+				<img id="showImage" src="{{ asset('profile')}}/no_image.jpg" alt="Admin" style="width:100px; height: 100px;"  >
+				@endif
+				</div>
+			</div>
+
+
+
+
+
+			<div class="row">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-9 text-secondary">
+					<input type="submit" class="btn btn-primary px-4" value="Save Changes" />
+				</div>
+			</div>
+		</div>
+
+		</form>
+
+
+
+	</div>
+	 
+
+
+
 							</div>
 						</div>
 					</div>
-
-					
-				
 				</div>
 			</div>
-      <script>
-var loadFile = function(event) {
-	var image = document.getElementById('output');
-	image.src = URL.createObjectURL(event.target.files[0]);
-};
+
+
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#image').change(function(e){
+			var reader = new FileReader();
+			reader.onload = function(e){
+				$('#showImage').attr('src',e.target.result);
+			}
+			reader.readAsDataURL(e.target.files['0']);
+		});
+	});
+
+
 </script>
 
-  @if(Session::has('pass'))
-  <script type="text/javascript">
-  	toastr.success(' {{session('pass')}}');
-  </script>
-  
- @endif
+
  
-  @endsection
+@endsection

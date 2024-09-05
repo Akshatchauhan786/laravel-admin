@@ -19,7 +19,16 @@ class AdminController extends Controller
 {
 
 
-    
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $admindata = Admins::where('id',Session::get('ADMIN_LOGIN'))->first();
+            view()->share([
+                'admindata' =>$admindata,
+            ]);
+        return $next($request);    
+        });
+    }
 
 
     // Login From Controller
@@ -60,10 +69,13 @@ class AdminController extends Controller
             }
         }
     }
-    public function dashboard()
-    {
-        return view('admin.auth.dashboard');
-    }
+    // public function dashboard()
+    // {   
+    //     $data=DB::table('users')->Paginate(10);
+    //     return view('admin.auth.dashboard',['data'=>$data]);
+
+    // }
+    
     // Profile Edit 
     public function editprofile(){
         $data = ['ADMIN_LOGIN'=>Admins::where('id','=', session('ADMIN_LOGIN'))->first()];
@@ -97,7 +109,12 @@ class AdminController extends Controller
          $user['name'] = $request->name;
          $user['email'] = $request->email;
          Admins::where('id','=', session('ADMIN_LOGIN'))->update($user);
-         return redirect()->back()->with('pass','Profile update successfull');
+         $notification = array(
+            'message' => 'Admin Profile Updated Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
       }
       //  Change Password
 
@@ -114,19 +131,18 @@ class AdminController extends Controller
          
            $LoggedUserInfo = Admins::where('id','=', session('ADMIN_LOGIN'))->first();
 
-         //Validate requests
-          $request->validate([
-            'current_password' => 'required',
-            'password' => 'required|confirmed|min:6'
-         ]);
+           $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|confirmed', 
+        ]);
 
-         if(!Hash::check($request->current_password, $LoggedUserInfo->password)){
-            return back()->with('error', 'Current password does not match!');
+         if(!Hash::check($request->old_password, $LoggedUserInfo->password)){
+            return back()->with("error", "Old Password Doesn't Match!!");
         }
    
-         $user['password'] = Hash::make($request->password);
+         $user['password'] = Hash::make($request->new_password);
          Admins::where('id','=', session('ADMIN_LOGIN'))->update($user);
-         return redirect()->back()->with('updatepassword','Password update successful');
+         return back()->with("status", " Password Changed Successfully");
           
     }
 
@@ -209,5 +225,108 @@ class AdminController extends Controller
     return redirect('/admin')->with('message', 'Your password has been changed!');
     }
 }
+
+     // Service Delete ==========================
+
+     public function servicedetail(Request $request)
+     {    
+         $data = DB::table('services')->where('id',$request['id'])->first();
+        // dd($data);
+         return view('admin.service.detail',['data'=>$data]);
+     }
+     
+
+    
+     public function delete(Request $request)
+     {    
+         DB::table('services')->where('id',$request['id'])->delete();
+         $notification = array(
+            'message' => 'Service Delete Successfully',
+            'alert-type' => 'success');
+            return redirect()->back()->with($notification);
+     }
+
+     public function userdelete(Request $request)
+     {    
+         DB::table('users')->where('id',$request['id'])->delete();
+         $notification = array(
+            'message' => 'User Delete Successfully',
+            'alert-type' => 'success');
+            return redirect()->back()->with($notification);
+     }
+
+
+     
+
+
+     public function approved($id)
+    {
+      
+        $v_category = DB::table('services')
+                ->select('status')
+                ->where('id','=',$id)
+                ->first();
+    
+        if($v_category->status == '1'){
+        $status = '0';
+        //update video categories status
+        $values = array('status' => $status );
+        DB::table('services')->where('id',$id)->update($values);
+        $notification = array(
+            'message' => 'Inactive successfully.',
+            'alert-type' => 'success');
+            return redirect()->back()->with($notification);
+        }else{
+        $status = '1';
+        //update video categories status
+        $values = array('status' => $status );
+        DB::table('services')->where('id',$id)->update($values);
+        $notification = array(
+            'message' => 'Active successfull.',
+            'alert-type' => 'success');
+            return redirect()->back()->with($notification);
+        
+         }
+
+    }
+
+    public function userapproved($id)
+    {
+      
+        $v_category = DB::table('users')
+                ->select('status')
+                ->where('id','=',$id)
+                ->first();
+    
+        if($v_category->status == '1'){
+        $status = '0';
+        //update video categories status
+        $values = array('status' => $status );
+        DB::table('users')->where('id',$id)->update($values);
+        $notification = array(
+            'message' => 'Inactive successfully.',
+            'alert-type' => 'success');
+            return redirect()->back()->with($notification);
+        }else{
+        $status = '1';
+        //update video categories status
+        $values = array('status' => $status );
+        DB::table('users')->where('id',$id)->update($values);
+        $notification = array(
+            'message' => 'Active successfull.',
+            'alert-type' => 'success');
+            return redirect()->back()->with($notification);
+        
+         }
+
+    }
+
+    public function service_list(Request $request){
+        $data=DB::table('services')->where('user_id',$request['id'])->Paginate(10);
+        //dd($data);
+        return view('admin.service.service-list',['data'=>$data]);
+      }
+ 
+
 
 }
